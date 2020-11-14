@@ -446,11 +446,22 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 241878342}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1761363965}
+        m_MethodName: OnClick_ReportBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &241878342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 526101784}
   - component: {fileID: 526101785}
+  - component: {fileID: 526101786}
   m_Layer: 5
   m_Name: CrewmateHud
   m_TagString: Untagged
@@ -535,6 +547,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526101783}
   m_CullTransparentMesh: 0
+--- !u!114 &526101786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526101783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7113a5cb6c7efe842a32067f7d4cdd72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reportBtn: {fileID: 197674580}
 --- !u!1 &631686626
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +856,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1761363965}
-        m_MethodName: OnClickKillBtn
+        m_MethodName: OnClick_KillBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1040,6 +1065,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1231456043}
   - component: {fileID: 1231456044}
+  - component: {fileID: 1231456047}
+  - component: {fileID: 1231456045}
+  - component: {fileID: 1231456046}
   m_Layer: 0
   m_Name: Vent
   m_TagString: Untagged
@@ -1055,8 +1083,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231456042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.529, y: -0.975, z: 0}
-  m_LocalScale: {x: 0.0713765, y: 0.0713765, z: 0.3568825}
+  m_LocalPosition: {x: 3.25, y: -0.6, z: 0}
+  m_LocalScale: {x: 0.080000006, y: 0.080000006, z: 0.080000006}
   m_Children: []
   m_Father: {fileID: 631686627}
   m_RootOrder: 0
@@ -1111,6 +1139,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1231456045
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231456042}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0000038146973, y: -0.00000047683716}
+  serializedVersion: 2
+  m_Radius: 8
+--- !u!114 &1231456046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231456042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e1acd123068154593beccb5c7ed324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ventBtn: {fileID: 2063568230}
+  sabotageBtn: {fileID: 774847675}
+--- !u!50 &1231456047
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231456042}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1298285505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97c7f68d8a1d6439f4ec5992902f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killBtn: {fileID: 849252964}
+  reportBtn: {fileID: 241878341}
 --- !u!1 &1781038928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,7 +1846,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2063568233}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1761363965}
+        m_MethodName: OnClick_VentBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2063568233
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 0.35f;    //Speed for the player
+    [HideInInspector] public bool canMove = true;
     [SerializeField] private Vector2 InputDirection;
     private Animator animator;
     //  For The Smooth Movement Method
@@ -60,10 +61,8 @@ public class PlayerMovement : MonoBehaviour
         1)  You can also use InputDirection.x here but just remember to Synchronize Size because then the remote player is
             changing the scale from their side and you have to sync it.
             The direction variable(of other player) in yr instance will not change it will be 0.
-
         2)  If u are using m_speed then you dont need to Synchronize Scale. 
             This works perfectly but sometimes(very rarely) the players facing dir wont be synced after stopping.
-
         3)  So instead i am using both InputDirection for local player and m_speed for remote player.
         **/
         if (PV.IsMine)
@@ -73,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if ((m_speed.x < 0.5 && facingRight) || (m_speed.x > 0.5 && !facingRight))
+            if ( ((m_speed.x < 0.5 && facingRight) || (m_speed.x > 0.5 && !facingRight)) && Mathf.Approximately(m_speed.x, 0f) )
                 Flip();
         }
 
@@ -108,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
         //rb.MovePosition(targetPos);
 
         // I think this was the method which actual among us game used.
-        rb.velocity = (direction.normalized * _speed);
+        if (canMove)
+            rb.velocity = (direction.normalized * _speed);
+        else
+            rb.velocity = Vector2.zero;
     }
 
     private void Flip()

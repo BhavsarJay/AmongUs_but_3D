@@ -55,7 +55,7 @@ public class RoleManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < impostersCount; i++)
             impostersIndex[i] = Random.Range(0, playersCount);
 
-        impostersIndex[0] = 0; //To make master client imposter
+        impostersIndex[0] = 1; //To be imposter for testing.
         for (int i = 0; i < playersCount; i++)
         {
             string PlayerName = players[i].name;

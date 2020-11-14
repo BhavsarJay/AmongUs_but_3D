@@ -66,6 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b53ccbec88d2d4c8f1d8719f3d296f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PV: {fileID: 0}
   LobbySceneIndex: 1
   GameSceneIndex: 2
-  inputField: {fileID: 0}
+  PlayersCount: 0
+  ImpostersCount: 1

@@ -13,6 +13,11 @@ public class Player : MonoBehaviourPunCallbacks
     public delegate void OnReady();
     public static event OnReady OnPlayersLoadedInGameScene;
 
+    public delegate void OnDead();
+    public static event OnReady OnThisPlayerDead;
+
+    public enum State { alive, dead };
+    public State mystate = State.alive;
 
     private void Awake()
     {
@@ -33,7 +38,15 @@ public class Player : MonoBehaviourPunCallbacks
         //Register player
         string id = GetComponent<PhotonView>().ViewID.ToString();
         PlayersList.RegisterPlayer(id, gameObject);
+
+        OnThisPlayerDead += Player_OnThisPlayerDead;
     }
+
+    private void Player_OnThisPlayerDead()
+    {
+        mystate = State.dead;
+    }
+
     public override void OnDisable()
     {
         base.OnDisable();
@@ -43,6 +56,8 @@ public class Player : MonoBehaviourPunCallbacks
 
         //Unregister player
         PlayersList.UnRegisterPlayer(transform.name);
+
+        OnThisPlayerDead -= Player_OnThisPlayerDead;
     }
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
@@ -65,10 +80,14 @@ public class Player : MonoBehaviourPunCallbacks
         }
 
         //Fire an event that everyone is ready only from local player or else multiple events will be fired.
-        if(PV.IsMine)
+        if (PV.IsMine)
             OnPlayersLoadedInGameScene?.Invoke();
 
     }
 
-
+    public void ThisPlayerDead()
+    {
+        if (PV.IsMine)
+            OnThisPlayerDead?.Invoke();
+    }
 }
