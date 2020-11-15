@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8428249954196641774}
   - component: {fileID: 2687579721534585863}
   - component: {fileID: 8995277114974230300}
+  - component: {fileID: 2295825617828993482}
   m_Layer: 0
   m_Name: DeadBody
   m_TagString: Untagged
@@ -112,3 +113,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReportBtn: {fileID: 0}
+--- !u!114 &2295825617828993482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428249954196641769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4006376b7e2e1e4383031c35e451d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

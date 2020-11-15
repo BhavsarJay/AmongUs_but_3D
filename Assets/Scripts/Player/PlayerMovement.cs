@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(CalculateSpeed());
     }
 
-    // Lerp Speed 3.5 - 4.5 works best, yet.
+    // Lerp Speed 3.5 - 4.5 works best, yet
+    // new best fixed speed (moveTowards speed = 4)
 
 
     private void Update()

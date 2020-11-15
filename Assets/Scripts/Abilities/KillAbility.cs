@@ -30,10 +30,12 @@ public class KillAbility : MonoBehaviour
             target.GetComponentInChildren<SpriteRenderer>().enabled = false;
 
         // Spawm DeadBody
-        Instantiate(deadBodyPrefab, target.transform.position, Quaternion.identity);
+        Vector3 offset = new Vector3(0, -0.3f, 0);
+        Instantiate(deadBodyPrefab, target.transform.position + offset, Quaternion.identity);
+        // Show death animations here, if needed.
 
         // Change targets collider to trigger
-        target.GetComponent<BoxCollider2D>().enabled = false;
+        target.GetComponent<BoxCollider2D>().isTrigger = true;
 
         // Teleport killer to targets position
         killer.transform.position = target.transform.position;

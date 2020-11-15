@@ -54,9 +54,16 @@ public class KillTrigger : MonoBehaviour
             if (playerProximity.NearestPlayerInside(killradius) != null)
             {
                 killTarget = playerProximity.NearestPlayerInside(killradius);
+
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // !!!!!!!!!!!!!!!!!!!! ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // !!!!!!!!!!!!!!!!!!!!!! NEEDED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                if (killTarget.GetComponent<Player>().mystate == Player.State.dead)
+                    return;
+
                 canKill = true;
                 Debug.Log(gameObject.name + " can kill " + killTarget);
-
             }
             else
             {
