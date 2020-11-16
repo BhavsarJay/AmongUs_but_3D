@@ -11,11 +11,14 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        //name = Player.player.name;
-        //Debug.Log(name);
-        //target = PlayersList.GetPlayer(name).transform;
+        //target = PlayersList.GetMyPlayer().transform;
 
-        target = PlayersList.GetMyPlayer().transform;
+        #region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
+        // Comment everything else in this function if you are testing.
+
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        # endregion +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
     }
 
     void LateUpdate()

@@ -245,6 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b01eedafe77b74f8970a4183634f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  insideVent: 0
+  nearestVent: {fileID: 0}
 --- !u!114 &6585829483785268975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4185c39f701e54396462aa64c1bcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nearestVent: {fileID: 0}
 --- !u!114 &685791956858035455
 MonoBehaviour:
   m_ObjectHideFlags: 0

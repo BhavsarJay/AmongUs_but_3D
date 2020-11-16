@@ -9,7 +9,8 @@ public class VentTrigger : MonoBehaviour
 {
     private PhotonView PV;
     private VentAbility ventAbility;
-    bool insideVent;
+    [HideInInspector] public bool insideVent;
+    [HideInInspector] public Transform nearestVent;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +29,12 @@ public class VentTrigger : MonoBehaviour
     {
         if (insideVent == false)
         {
-            ventAbility.Vent();
+            StartCoroutine(ventAbility.Vent_In(transform.position, nearestVent.position, 0.7f));
             insideVent = true;
         }
         else
         {
-            ventAbility.VentOut();
+            StartCoroutine(ventAbility.Vent_Out());
             insideVent = false;
         }
     }

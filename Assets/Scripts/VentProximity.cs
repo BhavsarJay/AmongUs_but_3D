@@ -27,7 +27,7 @@ public class VentProximity : MonoBehaviour
                 ventBtn.SetActive(true);
 
                 //Set nearest vent in Vent Ability Script.
-                myPlayer.GetComponent<VentAbility>().nearestVent = transform;
+                myPlayer.GetComponent<VentTrigger>().nearestVent = transform;
             }
         }
     }
