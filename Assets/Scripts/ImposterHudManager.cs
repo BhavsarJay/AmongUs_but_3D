@@ -5,8 +5,9 @@ public class ImposterHudManager : MonoBehaviour
 {
     GameObject myplayer;
 
-    KillTrigger killtrigger;
-    ReportTrigger reportTrigger;
+    private KillTrigger killtrigger;
+    private ReportTrigger reportTrigger;
+    private VentTrigger ventTrigger;
 
     public Button killBtn;
     public Button reportBtn;
@@ -21,12 +22,15 @@ public class ImposterHudManager : MonoBehaviour
         myplayer = PlayersList.GetMyPlayer();
         killtrigger = myplayer.GetComponent<KillTrigger>();
         reportTrigger = myplayer.GetComponent<ReportTrigger>();
+        ventTrigger = myplayer.GetComponent<VentTrigger>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (killtrigger.canKill)
+        //If someone is near make killBtn interactable
+        //Dont show the killBtn when inside Vent.
+        if (killtrigger.canKill && !ventTrigger.insideVent)
             killBtn.interactable = true;
         else
             killBtn.interactable = false;

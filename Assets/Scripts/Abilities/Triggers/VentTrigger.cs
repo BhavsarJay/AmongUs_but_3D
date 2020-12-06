@@ -29,12 +29,12 @@ public class VentTrigger : MonoBehaviour
     {
         if (insideVent == false)
         {
-            StartCoroutine(ventAbility.Vent_In(transform.position, nearestVent.position, 0.7f));
+            PV.RPC("Vent_In", RpcTarget.All, new object[] { transform.name, nearestVent.position });
             insideVent = true;
         }
         else
         {
-            StartCoroutine(ventAbility.Vent_Out());
+            PV.RPC("Vent_Out", RpcTarget.All, new object[] { transform.name });
             insideVent = false;
         }
     }

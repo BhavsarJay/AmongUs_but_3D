@@ -7,16 +7,17 @@ public class VentProximity : MonoBehaviour
     RoleManager roleManager;
     public GameObject ventBtn;
     public GameObject sabotageBtn;
+    GameObject myPlayer;
     
     void Start()
     {
+        myPlayer = PlayersList.GetMyPlayer();
         roleManager = FindObjectOfType<RoleManager>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         GameObject other = collision.gameObject;
-        GameObject myPlayer = PlayersList.GetMyPlayer();
 
         if(other == myPlayer)
         {

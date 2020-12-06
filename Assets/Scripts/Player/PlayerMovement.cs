@@ -41,65 +41,65 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //// To give depth to the players or else a player behind another can appear on top of the front one.
-        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 3f);
-
-        //// Accept Input if this is a local player
-        //if (PV.IsMine)    //Comment this line if you want to test player movement.
-        //    InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        //animator.SetFloat("speed", m_speed.magnitude);
-
-
-        # region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
-        // Comment everything else in this function if you are testing.
-        
+        // To give depth to the players or else a player behind another can appear on top of the front one.
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 3f);
-        InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        animator.SetFloat("speed", InputDirection.magnitude);
+
+        // Accept Input if this is a local player
+        if (PV.IsMine)    //Comment this line if you want to test player movement.
+            InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        animator.SetFloat("speed", m_speed.magnitude);
+
+
+        #region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
+        // Comment everything else in this function if you are testing.
+
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 3f);
+        //InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //animator.SetFloat("speed", InputDirection.magnitude);
 
         # endregion +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
     }
 
     void FixedUpdate()
     {
-        //MoveCharacter(InputDirection, speed);
+        MoveCharacter(InputDirection, speed);
 
 
-        //// For player turning...
+        ////// For player turning...
 
-        ///**
-        //1)  You can also use InputDirection.x here but just remember to Synchronize Size because then the remote player is
-        //    changing the scale from their side and you have to sync it.
-        //    The direction variable(of other player) in yr instance will not change it will be 0.
-        //2)  If u are using m_speed then you dont need to Synchronize Scale. 
-        //    This works perfectly but sometimes(very rarely) the players facing dir wont be synced after stopping.
-        //3)  So instead i am using both InputDirection for local player and m_speed for remote player.
-        //**/
-        //if (PV.IsMine)
-        //{
-        //    //CanMove - because when venting player should not flip character.
-        //    if ( ((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove )
-        //        Flip();
-        //}
-        //else
-        //{
-        //    if ( ((m_speed.x < 0.5 && facingRight) || (m_speed.x > 0.5 && !facingRight)) && Mathf.Approximately(m_speed.x, 0f) )
-        //        Flip();
-        //}
+        /////**
+        ////1)  You can also use InputDirection.x here but just remember to Synchronize Size because then the remote player is
+        ////    changing the scale from their side and you have to sync it.
+        ////    The direction variable(of other player) in yr instance will not change it will be 0.
+        ////2)  If u are using m_speed then you dont need to Synchronize Scale. 
+        ////    This works perfectly but sometimes(very rarely) the players facing dir wont be synced after stopping.
+        ////3)  So instead i am using both InputDirection for local player and m_speed for remote player.
+        ////**/
+        if (PV.IsMine)
+        {
+            //CanMove - because when venting player should not flip character.
+            if (((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove)
+                Flip();
+        }
+        else
+        {
+            if (((m_speed.x < 0.5 && facingRight) || (m_speed.x > 0.5 && !facingRight)) && Mathf.Approximately(m_speed.x, 0f))
+                Flip();
+        }
 
 
         #region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
         // Comment everything else in this function if you are testing.
 
-        MoveCharacter(InputDirection, speed);
-        if (((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove)
-            Flip();
+        //MoveCharacter(InputDirection, speed);
+        //if (((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove)
+        //    Flip();
 
         # endregion +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
 
     }
-    
+
     public void MoveCharacter(Vector2 direction, float _speed)
     {
         //Not my method , gives smooth movement but its not the among us feel

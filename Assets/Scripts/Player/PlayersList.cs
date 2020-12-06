@@ -8,6 +8,7 @@ public static class PlayersList
     private const string PLAYER_ID_PREFFIX = "Player ";
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static GameObject[] playersArray;
+    private static Dictionary<string, string> colors = new Dictionary<string, string>();
 
     public static void RegisterPlayer(string _netID, GameObject _player)
     {
@@ -38,5 +39,21 @@ public static class PlayersList
     {
         playersArray = players.Values.ToArray();
         return playersArray;
+    }
+
+    public static void GiveColor(string newColor, string prevColor,string playerName)
+    {
+        if(colors.ContainsKey(prevColor))
+            colors.Remove(prevColor);
+        
+        colors.Add(newColor, playerName);
+    }
+
+    // Call this inside OnPlayerDisconnected and not inside OnDisable
+    public static void RemoveColor(string color) => colors.Remove(color);
+
+    public static bool IsColorAvailable(string color)
+    {
+        return !colors.ContainsKey(color);
     }
 }

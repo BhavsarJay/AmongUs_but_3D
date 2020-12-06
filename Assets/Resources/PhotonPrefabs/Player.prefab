@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 6585829483785268975}
   - component: {fileID: 685791956858035455}
   - component: {fileID: 9111660141466906109}
+  - component: {fileID: 5266496190850747610}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -272,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canReport: 0
+  nearestBody: {fileID: 0}
 --- !u!114 &9111660141466906109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nearestBody: {fileID: 0}
+--- !u!114 &5266496190850747610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3976664909677188414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29644817b22b82345bc042f0df6587d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
+  - {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+  - {r: 0.90099996, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0.461, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0.3962264, g: 0.18210462, b: 0.09531861, a: 1}
+  - {r: 0.4977372, g: 0, b: 0.735849, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.28773582, b: 0.8455596, a: 1}
+  - {r: 1, g: 0.35750774, b: 0.023584902, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &7776952381955082061
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +362,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0f985b4f9c9d5084599882013881c5b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

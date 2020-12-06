@@ -29,9 +29,11 @@ public class KillAbility : MonoBehaviour
         if(target != PlayersList.GetMyPlayer())
             target.GetComponentInChildren<SpriteRenderer>().enabled = false;
 
-        // Spawm DeadBody
+        // Spawm DeadBody rename it to targets name.
         Vector3 offset = new Vector3(0, -0.3f, 0);
-        Instantiate(deadBodyPrefab, target.transform.position + offset, Quaternion.identity);
+        GameObject deadbody = Instantiate(deadBodyPrefab, target.transform.position + offset, Quaternion.identity);
+        deadbody.name = targetsName;
+
         // Show death animations here, if needed.
 
         // Change targets collider to trigger

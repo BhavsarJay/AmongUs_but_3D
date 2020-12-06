@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: f225f814-3fba-4e92-a922-eafe3d22d3b3
-    AppIdChat: 
+    AppIdChat: b4dc1a33-f143-4cc9-975c-ed892dc03958
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
@@ -35,6 +35,9 @@ MonoBehaviour:
   - DestroyRpc
   - GetRoles
   - Kill
+  - Vent_In
+  - Vent_Out
+  - GiveColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

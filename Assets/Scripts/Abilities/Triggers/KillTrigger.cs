@@ -56,7 +56,7 @@ public class KillTrigger : MonoBehaviour
                 killTarget = playerProximity.NearestPlayerInside(killradius);
 
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // !!!!!!!!!!!!!!!!!!!! ATTENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // !!!!!!!!!!!!!!!!!!!! ATTENTION !! Not Sure if this works !!!!!!!!
                 // !!!!!!!!!!!!!!!!!!!!!! NEEDED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (killTarget.GetComponent<Player>().mystate == Player.State.dead)
@@ -77,7 +77,7 @@ public class KillTrigger : MonoBehaviour
         if (canKill)
         {
             //Debug.Log("Killed Someone");
-            transform.position = killTarget.transform.position;
+            //transform.position = killTarget.transform.position; //We are already doing this in RPC func.
             PV.RPC("Kill", RpcTarget.All, new string[] { gameObject.name, killTarget.name });
             //Kill();
         }
