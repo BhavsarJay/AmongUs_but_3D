@@ -32,10 +32,7 @@ public class KillTrigger : MonoBehaviour
     private void OnGameSceneLoaded()
     {
         roleManager = FindObjectOfType<RoleManager>();
-        if (roleManager != null)
-        {
-            StartCoroutine(GetMyRole());
-        }
+        StartCoroutine(GetMyRole());
     }
 
     IEnumerator GetMyRole()
@@ -56,42 +53,28 @@ public class KillTrigger : MonoBehaviour
                 killTarget = playerProximity.NearestPlayerInside(killradius);
 
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // !!!!!!!!!!!!!!!!!!!! ATTENTION !! Not Sure if this works !!!!!!!!
-                // !!!!!!!!!!!!!!!!!!!!!! NEEDED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // !!!!! ATTENTION !! Not Sure if this "Player State" works !!!!!!!!
+                // !!!!!! NEEDED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                if (killTarget.GetComponent<Player>().mystate == Player.State.dead)
+                if (killTarget.GetComponent<Player>().myState == Player.State.dead)
                     return;
 
                 canKill = true;
-                Debug.Log(gameObject.name + " can kill " + killTarget);
+                //Debug.Log(gameObject.name + " can kill " + killTarget);
             }
             else
-            {
                 canKill = false;
-            }
         }
     }
 
     public void OnKill()
     {
         if (canKill)
-        {
-            //Debug.Log("Killed Someone");
-            //transform.position = killTarget.transform.position; //We are already doing this in RPC func.
             PV.RPC("Kill", RpcTarget.All, new string[] { gameObject.name, killTarget.name });
-            //Kill();
-        }
     }
-
-
-
-
-
-
-
 
     //private void OnDrawGizmos()
     //{
-    //    UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, killradius);
+    //    Gizmos.DrawSphere(transform.position, killradius);
     //}
 }

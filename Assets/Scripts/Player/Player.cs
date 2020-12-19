@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Photon.Pun;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
@@ -8,23 +9,18 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
-    public static Player player;
 
     public delegate void OnReady();
     public static event OnReady OnPlayersLoadedInGameScene;
 
-    public delegate void OnDead();
-    public static event OnReady OnThisPlayerDead;
+    public static event Action OnThisPlayerDead;
 
     public enum State { alive, dead };
-    public State mystate = State.alive;
+    public State myState = State.alive;
 
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
-        if (PV.IsMine)
-            player = this;
-
         DontDestroyOnLoad(gameObject);
     }
 
@@ -44,7 +40,7 @@ public class Player : MonoBehaviourPunCallbacks
 
     private void Player_OnThisPlayerDead()
     {
-        mystate = State.dead;
+        myState = State.dead;
     }
 
     public override void OnDisable()
@@ -64,10 +60,10 @@ public class Player : MonoBehaviourPunCallbacks
     {
         PV = GetComponent<PhotonView>();
         if (scene.buildIndex == PhotonRoom.room.GameSceneIndex)
-            StartCoroutine(HavePlayersJoined());
+            StartCoroutine(WaitForPlayersToJoin());
     }
 
-    IEnumerator HavePlayersJoined()
+    IEnumerator WaitForPlayersToJoin()
     {
         GameObject[] players;
         int playersCount = 0;
@@ -87,7 +83,6 @@ public class Player : MonoBehaviourPunCallbacks
 
     public void ThisPlayerDead()
     {
-        if (PV.IsMine)
-            OnThisPlayerDead?.Invoke();
+        OnThisPlayerDead?.Invoke();
     }
 }

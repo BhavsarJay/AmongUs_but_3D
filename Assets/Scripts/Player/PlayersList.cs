@@ -31,8 +31,12 @@ public static class PlayersList
 
     public static GameObject GetMyPlayer()
     {
-        string myName = Player.player.name;
-        return GetPlayer(myName);
+        foreach (GameObject player in GetPlayers())
+        {
+            if (LayerMask.LayerToName(player.layer) == "LocalPlayer")
+                return GetPlayer(player.name);
+        }
+        return null;
     }
 
     public static GameObject[] GetPlayers()

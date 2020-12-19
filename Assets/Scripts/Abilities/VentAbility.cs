@@ -7,13 +7,11 @@ using UnityEngine;
 public class VentAbility : MonoBehaviour
 {
     private Animator anim;
-    private SpriteRenderer sr;
     private PlayerMovement playerMovement;
 
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
-        sr = GetComponentInChildren<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
@@ -56,7 +54,7 @@ public class VentAbility : MonoBehaviour
 
 
         // Play vent-in animation.
-        _player.GetComponentInChildren<Animator>().SetBool("vent", true);
+        //_player.GetComponentInChildren<Animator>().SetBool("vent", true);
 
         // Wait for the length of animations then hide the character.
         yield return new WaitForSeconds(0.25f);
@@ -68,7 +66,7 @@ public class VentAbility : MonoBehaviour
     IEnumerator CR_Vent_Out(GameObject _player)
     {
         //Enable the sprite.
-        _player.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        _player.GetComponentInChildren<MeshRenderer>().enabled = true;
 
         // Play vent-out animation.
         _player.GetComponentInChildren<Animator>().SetBool("vent", false);

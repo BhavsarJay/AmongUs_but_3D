@@ -7,31 +7,34 @@ using UnityEngine.UI;
 //On Mini
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 0.35f;    //Speed for the player
+    public float speed = 4.5f;    //Speed of the player
+    public float rotSpeed = 0.1f; //Rotation Speed of the player
     [HideInInspector] public bool canMove = true;
     [SerializeField] private Vector2 InputDirection;
     private Animator animator;
+
     //  For The Smooth Movement Method
     //private Vector3 m_Velocity = Vector3.zero;
     //[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 
     // To calc speed using transform
-    public Vector2 m_speed;      //Speed the player is moving at a particular time.
+    public Vector3 m_moveSpeed;      //Speed this player is moving at a particular time.
     private Vector3 lastPosition = Vector3.zero;
 
     // For Multiplayer...
     PhotonView PV;
 
-    //Joystick movementJoystick;
-    Rigidbody2D rb;
-    private bool facingRight = true;
+    Rigidbody rb;
 
     void Start()
     {
+        rotSpeed = speed / 30;
+
         PV = GetComponent<PhotonView>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         //movementJoystick = GameObject.FindGameObjectWithTag("Movement Joystick").GetComponent<FixedJoystick>();
+
         StartCoroutine(CalculateSpeed());
     }
 
@@ -39,69 +42,37 @@ public class PlayerMovement : MonoBehaviour
     // new best fixed speed (moveTowards speed = 4)
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // To give depth to the players or else a player behind another can appear on top of the front one.
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 3f);
+        // Rotate both local and remote Players based on their speed.
+        RotatePlayer();
 
-        // Accept Input if this is a local player
-        if (PV.IsMine)    //Comment this line if you want to test player movement.
-            InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        animator.SetFloat("speed", m_speed.magnitude);
-
-
-        #region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
-        // Comment everything else in this function if you are testing.
-
-        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y / 3f);
-        //InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        //animator.SetFloat("speed", InputDirection.magnitude);
-
-        # endregion +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
-    }
-
-    void FixedUpdate()
-    {
-        MoveCharacter(InputDirection, speed);
-
-
-        ////// For player turning...
-
-        /////**
-        ////1)  You can also use InputDirection.x here but just remember to Synchronize Size because then the remote player is
-        ////    changing the scale from their side and you have to sync it.
-        ////    The direction variable(of other player) in yr instance will not change it will be 0.
-        ////2)  If u are using m_speed then you dont need to Synchronize Scale. 
-        ////    This works perfectly but sometimes(very rarely) the players facing dir wont be synced after stopping.
-        ////3)  So instead i am using both InputDirection for local player and m_speed for remote player.
-        ////**/
         if (PV.IsMine)
         {
-            //CanMove - because when venting player should not flip character.
-            if (((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove)
-                Flip();
+            MoveCharacter(InputDirection, speed);
+
+            // If this is a local player then accept input and change animators parameters.
+            InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            // Check for animation State Change based on Input
+            if (InputDirection.magnitude != 0)
+                animator.SetBool("running", true);
+            else
+                animator.SetBool("running", false);
         }
         else
         {
-            if (((m_speed.x < 0.5 && facingRight) || (m_speed.x > 0.5 && !facingRight)) && Mathf.Approximately(m_speed.x, 0f))
-                Flip();
+            // Check for animation State Change based on speed
+            if (m_moveSpeed.magnitude > 0.01f)
+                animator.SetBool("running", true);
+            else
+                animator.SetBool("running", false);
         }
-
-
-        #region +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
-        // Comment everything else in this function if you are testing.
-
-        //MoveCharacter(InputDirection, speed);
-        //if (((InputDirection.x < 0 && facingRight) || (InputDirection.x > 0 && !facingRight)) && canMove)
-        //    Flip();
-
-        # endregion +++++++++++++++++++ FOR TESTING SCENE +++++++++++++++++++
-
     }
 
-    public void MoveCharacter(Vector2 direction, float _speed)
+    public void MoveCharacter(Vector2 inputDirection, float _speed)
     {
+        #region Other Methods
         //Not my method , gives smooth movement but its not the among us feel
         // Move the character by finding the target velocity
         //Vector3 targetVelocity = movDir * _speed;
@@ -120,14 +91,22 @@ public class PlayerMovement : MonoBehaviour
         //    rb.MovePosition(smoothedPosition);
         //else
         //    rb.MovePosition(Vector2.zero);
-
+        #endregion Other Methods
 
         // I think this was the method which actual among us game used.
         if (canMove)
-            rb.velocity = direction.normalized * _speed;
+        {
+            Vector3 velocityDir = new Vector3(inputDirection.x, 0f, inputDirection.y);
+            rb.velocity = velocityDir.normalized * _speed;
+        }
         else
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector3.zero;
+    }
 
+    private void RotatePlayer()
+    {
+        if (m_moveSpeed.magnitude >= 0.2f)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_moveSpeed), rotSpeed);
     }
 
     IEnumerator CalculateSpeed()
@@ -139,19 +118,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lastPosition = transform.position;
             yield return new WaitForFixedUpdate();
-            m_speed = (transform.position - lastPosition) / Time.fixedDeltaTime;
+            m_moveSpeed = (transform.position - lastPosition) / Time.fixedDeltaTime;
         }
-    }
-
-
-    private void Flip()
-    {
-        // Switch the way the player is labelled as facing.
-        facingRight = !facingRight;
-
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
     }
 }

@@ -29,10 +29,10 @@ public class PlayerProximity : MonoBehaviour
         nearestPlayer = null;
         foreach (GameObject player in players)
         {
-            if (player == this.gameObject)
+            if (player == this.gameObject || player == null)
                 continue;
 
-            Vector2 dist = player.transform.position - transform.position;
+            Vector3 dist = player.transform.position - transform.position;
             if (dist.magnitude < closestDist && dist.magnitude < radius)
             {
                 nearestPlayer = player;

@@ -4,9 +4,10 @@ using UnityEngine.UI;
 public class CrewmateHudManager : MonoBehaviour
 {
     GameObject myplayer;
-
     ReportTrigger reportTrigger;
+
     public Button reportBtn;
+    public Button useBtn;
 
 
     private void OnEnable() => Player.OnThisPlayerDead += Player_OnThisPlayerDead;
@@ -33,6 +34,11 @@ public class CrewmateHudManager : MonoBehaviour
     private void Player_OnThisPlayerDead()
     {
         reportBtn.gameObject.SetActive(false);
+    }
+
+    public void ToggleUseBtn(bool value)
+    {
+        useBtn.interactable = value;
     }
 
 }

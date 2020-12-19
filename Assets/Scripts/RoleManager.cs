@@ -34,7 +34,7 @@ public class RoleManager : MonoBehaviourPunCallbacks
         //Register players and give roles
         if (PhotonNetwork.IsMasterClient)
         {
-            RegisterPlayers();
+            RegisterPlayersRoles();
         }
     }
     
@@ -46,7 +46,7 @@ public class RoleManager : MonoBehaviourPunCallbacks
         ImposterHud = canvas.transform.GetChild(1).gameObject;
     }
 
-    private void RegisterPlayers()
+    private void RegisterPlayersRoles()
     {
         impostersIndex = new int[PhotonRoom.room.ImpostersCount];
         int impostersCount = PhotonRoom.room.ImpostersCount;
@@ -55,7 +55,7 @@ public class RoleManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < impostersCount; i++)
             impostersIndex[i] = Random.Range(0, playersCount);
 
-        impostersIndex[0] = 0; //To be imposter for testing.
+        impostersIndex[0] = 1; //To be imposter for testing.
         for (int i = 0; i < playersCount; i++)
         {
             string PlayerName = players[i].name;
@@ -97,7 +97,10 @@ public class RoleManager : MonoBehaviourPunCallbacks
     
     public string GetRole(string name)
     {
-        return playersRole[name];
+        if(playersRole.ContainsKey(name))
+            return playersRole[name];
+        else
+            return null;
     }
 
     private void ShowImpostersHUD()

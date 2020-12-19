@@ -15,11 +15,9 @@ public class ReportProximity : MonoBehaviour
         reportTrigger = myPlayer.GetComponent<ReportTrigger>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider other)
     {
-        GameObject other = collision.gameObject;
-
-        if (other == myPlayer)
+        if (other.gameObject == myPlayer)
         {
             //Enable Report Button
             reportTrigger.canReport = true;
@@ -29,7 +27,7 @@ public class ReportProximity : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
         //Disable Vent Btn Enable Sabotage
         reportTrigger.canReport = false;

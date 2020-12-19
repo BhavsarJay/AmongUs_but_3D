@@ -15,11 +15,9 @@ public class VentProximity : MonoBehaviour
         roleManager = FindObjectOfType<RoleManager>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider other)
     {
-        GameObject other = collision.gameObject;
-
-        if(other == myPlayer)
+        if(other.gameObject == myPlayer)
         {
             if(roleManager.myrole == RoleManager.IMPOSTER)
             {
@@ -33,7 +31,7 @@ public class VentProximity : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
         //Disable Vent Btn Enable Sabotage
         ventBtn.SetActive(false);

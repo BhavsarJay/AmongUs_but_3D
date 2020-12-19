@@ -20,6 +20,7 @@ public class PlayerName : MonoBehaviour
 
         string defaultName = PlayerPrefs.GetString(PlayerPrefsNameKey);
         playerNameInpField.text = defaultName;
+        PhotonNetwork.NickName = defaultName;
     }
 
     public void SavePlayerName()

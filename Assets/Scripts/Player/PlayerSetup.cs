@@ -17,7 +17,7 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         if (!PV.IsMine)
         {
             DisableConmponents();
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;      //To not network the physics...
+            gameObject.GetComponent<Rigidbody>().isKinematic = true;      //To not network the physics...
             AssignRemoteLayer();
         }
     }

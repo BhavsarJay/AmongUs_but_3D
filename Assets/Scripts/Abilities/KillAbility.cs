@@ -15,19 +15,22 @@ public class KillAbility : MonoBehaviour
         GameObject target = PlayersList.GetPlayer(targetsName);
         GameObject killer = PlayersList.GetPlayer(killersName);
 
-        Debug.Log("Someones Dead :(");
-
-
-        //Change State of the Player
-        target.GetComponent<Player>().ThisPlayerDead();
-
-        // Change to ghost sprite and play ghost animation in local instance.
-        Animator targetsAnimator = target.GetComponentInChildren<Animator>();
-        targetsAnimator.SetTrigger("dead");
+        // No Animations Yet :(
+        //Animator targetsAnimator = target.GetComponentInChildren<Animator>();
+        //targetsAnimator.SetTrigger("dead");
 
         // Disable SpriteRenderer only if i am not the target.
         if(target != PlayersList.GetMyPlayer())
-            target.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        {
+            target.GetComponentInChildren<MeshRenderer>().enabled = false;
+            
+            // Set State of the target to dead if its not my player
+            target.GetComponent<Player>().myState = Player.State.dead;
+        }
+        else
+        {
+            target.GetComponent<Player>().ThisPlayerDead();
+        }
 
         // Spawm DeadBody rename it to targets name.
         Vector3 offset = new Vector3(0, -0.3f, 0);
@@ -37,14 +40,13 @@ public class KillAbility : MonoBehaviour
         // Show death animations here, if needed.
 
         // Change targets collider to trigger
-        target.GetComponent<BoxCollider2D>().isTrigger = true;
+        target.GetComponent<CapsuleCollider>().isTrigger = true;
 
         // Teleport killer to targets position
         killer.transform.position = target.transform.position;
-        /** Need to do somthing about this cause it doesnt teleport to new pos in others instances cause
-            the transform view smoothens it out.
-            
-            Might have to write a custom position synchronization script.
+        
+        
+        /** If u want to write a custom position synchronization script.
         Might help:
             https://doc.photonengine.com/en-us/pun/current/gameplay/synchronization-and-state
             https://forum.photonengine.com/discussion/13140/teleport-like-abilities-while-using-photon-transform-view

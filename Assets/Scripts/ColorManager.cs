@@ -70,11 +70,8 @@ public class ColorManager : MonoBehaviour
         int index = Array.IndexOf(COLORS, newColor);
         Color color = colors[index];
 
-        Material BodyMat = player.GetComponentInChildren<SpriteRenderer>().material;
-        BodyMat.SetColor("Color_480E891A", color);
-        float h, s, v;
-        Color.RGBToHSV(color,out h, out s, out v);
-        Color darkColor = Color.HSVToRGB(h, s, v * 0.7f);
-        BodyMat.SetColor("Color_1EA1A65B", darkColor);
+        // Change the color
+        //Material BodyMat = player.GetComponentInChildren<MeshRenderer>().material;
+        //BodyMat.color = color;
     }
 }
