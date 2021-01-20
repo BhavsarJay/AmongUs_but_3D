@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Task Triggerer
+  - Game Manager
   layers:
   - Default
   - TransparentFX
@@ -18,8 +20,8 @@ TagManager:
   - Red Drink
   - Yellow Drink
   - Blue Drink
-  - 
-  - 
+  - Trash Can Lid
+  - Trash Bag
   - 
   - 
   - 
@@ -43,7 +45,4 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 3325607007
-    locked: 0
-  - name: Interactable
-    uniqueID: 4200860983
     locked: 0

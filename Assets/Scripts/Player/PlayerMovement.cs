@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //On Mini
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 4.5f;    //Speed of the player
+    public float speed = 4.5f;    //Speed of the player (Default value should be 4.5)
     public float rotSpeed = 0.1f; //Rotation Speed of the player
     [HideInInspector] public bool canMove = true;
     [SerializeField] private Vector2 InputDirection;

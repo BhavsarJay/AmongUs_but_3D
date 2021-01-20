@@ -5,12 +5,10 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VendingMachineTask : MonoBehaviour
+public class VendingMachineTask : MonoBehaviour, ITask
 {
-    public event Action VendingMachine;
-    public CrewmateHudManager crewmateHud;
     public CinemachineVirtualCamera VendingMachineVCam;
-    private bool openTask;
+    private bool doingTask;
     public LayerMask layermask;
     bool TaskComplete;
 
@@ -20,31 +18,19 @@ public class VendingMachineTask : MonoBehaviour
     /// </summary>
     public int[] TypesOfDrinks = new int[] {1, 2, 2};
 
-    private void OnTriggerStay(Collider other)
+    
+    public void TriggerTask()
     {
-        // Enable Use button
-        if(other.gameObject == PlayersList.GetMyPlayer())
-            crewmateHud.ToggleUseBtn(true);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == PlayersList.GetMyPlayer())
-            crewmateHud.ToggleUseBtn(false);
-    }
-
-    public void OnClick_UseBtn()
-    {
-        if (!openTask && !TaskComplete)
+        if (!doingTask && !TaskComplete)
         {
-            openTask = true;
+            doingTask = true;
             PlayersList.GetMyPlayer().GetComponent<PlayerMovement>().canMove = false;
             VendingMachineVCam.gameObject.SetActive(true);
             StartCoroutine(AcceptClicks());
         }
         else
         {
-            openTask = false;
+            doingTask = false;
             PlayersList.GetMyPlayer().GetComponent<PlayerMovement>().canMove = true;
             VendingMachineVCam.gameObject.SetActive(false);
         }
@@ -53,7 +39,7 @@ public class VendingMachineTask : MonoBehaviour
     IEnumerator AcceptClicks()
     {
         Debug.Log("Take 1 red Drink , 2 Yellow Drinks and 2 Blue Drinks");
-        while (openTask)
+        while (doingTask)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -110,9 +96,9 @@ public class VendingMachineTask : MonoBehaviour
         }
     }
 
-    private void ExitTask(bool isComplete)
+    public void ExitTask(bool isComplete)
     {
-        openTask = false;
+        doingTask = false;
         PlayersList.GetMyPlayer().GetComponent<PlayerMovement>().canMove = true;
         VendingMachineVCam.gameObject.SetActive(false);
 

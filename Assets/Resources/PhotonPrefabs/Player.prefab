@@ -69,11 +69,11 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3976664909677188414}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0f9c56d7a7124e47a8434d60fe1cc63, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.38
-  m_Height: 1.78
+  m_Radius: 0.55925
+  m_Height: 2.7291183
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &6899264860315915364
@@ -115,7 +115,7 @@ MonoBehaviour:
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 10
     InterpolateOption: 1
-    InterpolateMoveTowardsSpeed: 4
+    InterpolateMoveTowardsSpeed: 10
     InterpolateLerpSpeed: 4
     ExtrapolateOption: 0
     ExtrapolateSpeed: 1
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800d860c5bd6d55469a632b5b78fb026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4.5
+  speed: 10
   rotSpeed: 0.1
   canMove: 1
   InputDirection: {x: 0, y: 0}
@@ -366,17 +366,17 @@ PrefabInstance:
     - target: {fileID: 4804882780889664371, guid: 892a882e5cf496844acb0f5c53e251df,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4804882780889664371, guid: 892a882e5cf496844acb0f5c53e251df,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4804882780889664371, guid: 892a882e5cf496844acb0f5c53e251df,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892a882e5cf496844acb0f5c53e251df, type: 3}

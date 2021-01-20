@@ -10,7 +10,12 @@ public class CrewmateHudManager : MonoBehaviour
     public Button useBtn;
 
 
-    private void OnEnable() => Player.OnThisPlayerDead += Player_OnThisPlayerDead;
+    private void OnEnable()
+    {
+        Player.OnThisPlayerDead += Player_OnThisPlayerDead;
+
+        // Subscribe to different tasks
+    }
 
     private void OnDisable() => Player.OnThisPlayerDead -= Player_OnThisPlayerDead;
 
